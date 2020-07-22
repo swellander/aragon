@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
   Button,
@@ -18,7 +19,7 @@ import DisputableAppsEmpty from './DisputableApps/DisputableAppsEmpty'
 import VersionHistory from './VersionHistory'
 import VotePending from './VotePending'
 
-const Agreement = React.memo(function Agreement() {
+function Agreement({ agreements }) {
   const [checklistCompleted, setChecklistCompleted] = useState(false)
   const [agreementStatus, setAgreementStatus] = useState(STATUS_PENDING)
   const { layoutName } = useLayout()
@@ -172,6 +173,10 @@ const Agreement = React.memo(function Agreement() {
       />
     </React.Fragment>
   )
-})
+}
+
+Agreement.propTypes = {
+  agreements: PropTypes.array,
+}
 
 export default Agreement
