@@ -56,7 +56,7 @@ function renderEntryActions(entry, theme) {
   const { entryActions } = entry
 
   return (
-    <ContextMenu>
+    <ContextMenu disabled>
       {entryActions.map(([onClick, Icon, label], index) => (
         <ContextMenuItem onClick={onClick} key={index}>
           <span

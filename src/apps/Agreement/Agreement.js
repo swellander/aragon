@@ -107,6 +107,7 @@ function Agreement({ agreements }) {
         primary="Agreement"
         secondary={
           <Button
+            disabled
             mode="strong"
             label="Update Agreement"
             onClick={noop}
@@ -172,4 +173,4 @@ Agreement.propTypes = {
   agreements: PropTypes.array,
 }
 
-export default Agreement
+export default React.memo(Agreement)
