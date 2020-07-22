@@ -18,8 +18,8 @@ const disputableApp = {
   collateralToken: {
     address: antAddress,
     decimals: 18, // usually 18 but may be lower (e.g. 6 for USDC)
-    name: 'name', // string | null
-    symbol: 'symbol', // string | null
+    name: 'Aragon Network Token', // string | null
+    symbol: 'ANT', // string | null
   },
   actionAmount: new BN(100),
   challengeAmount: new BN(100),
@@ -38,7 +38,7 @@ const signer = {
 
 const version = {
   id: new BN(12345),
-  title: 'Agreement Title',
+  title: 'DAO Agreement',
   contentUri: ipfsUri, // decoded URI for content, usually in the form of 'ipfs:...'
   content: 'blob', // content data, if it was fetch-able
   arbitrator: genericAddress,
@@ -53,6 +53,7 @@ const agreement = {
     addressKey: signer,
   },
   stakingPool: genericAddress,
+  agreementContract: genericAddress,
   versions: [version, version],
 }
 

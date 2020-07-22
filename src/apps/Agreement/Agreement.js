@@ -20,9 +20,16 @@ import DisputableAppsEmpty from './DisputableApps/DisputableAppsEmpty'
 import VersionHistory from './VersionHistory'
 import VotePending from './VotePending'
 
+import AGREEMENTS_MOCK_DATA from './mock-data'
+
 function Agreement({ agreements }) {
   const [checklistCompleted, setChecklistCompleted] = useState(true)
   const { layoutName } = useLayout()
+
+  // Temporarily provide mock data if initially undefined
+  const agreement = (agreements && agreements[0]) || AGREEMENTS_MOCK_DATA[0]
+  const { agreementContract, stakingPool } = agreement
+  const { title } = agreement.currentVersion
 
   const agreementStatus = STATUS_ACTIVE
   const compactMode = layoutName === 'small'
@@ -122,7 +129,7 @@ function Agreement({ agreements }) {
           <React.Fragment>
             <Box>
               <AgreementHeader
-                title="DAO Agreement"
+                title={title}
                 status={agreementStatus}
                 onSign={() => {
                   console.log('Signed')
@@ -133,8 +140,8 @@ function Agreement({ agreements }) {
               />
               <AgreementDetails
                 ipfsLink="QmXpcBiGZ7Uep2tmhxLhfA8ak1aYDUyevFSnpUa4Gc9kRn"
-                stakingAddress="0x7c708ac7db979fa06705f8880f29f82cfc406993"
-                contractAddress="0x7c708ac7db979fa06705f8880f29f82cfc406993"
+                stakingAddress={stakingPool}
+                contractAddress={agreementContract}
               />
             </Box>
             {mockAppItems.length > 0 ? (
