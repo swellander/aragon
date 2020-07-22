@@ -122,8 +122,6 @@ function renderEntryExpansion(entry, compactMode) {
     actionCollateral,
     challengeCollateral,
     settlementPeriod,
-    challengePeriod,
-    signerEligibility,
     challengeEligibility,
   } = entry
 
@@ -148,7 +146,11 @@ function renderEntryExpansion(entry, compactMode) {
               <React.Fragment>
                 Action Collateral
                 <Help hint="What is Action Collateral?">
-                  <strong>Action Collateral</strong>.
+                  <strong>Action Collateral</strong> is the amount of collateral
+                  tokens required to be locked every time an action is created.
+                  This amount will be automatically locked from the staking pool
+                  balance given that access is granted to the Agreements app as
+                  the Lock Manager.
                 </Help>
               </React.Fragment>
             }
@@ -167,12 +169,14 @@ function renderEntryExpansion(entry, compactMode) {
               <React.Fragment>
                 Challenge Collateral
                 <Help hint="What is Challenge Collateral?">
-                  <strong>Challenge Collateral</strong>.
+                  <strong>Challenge Collateral</strong> is the amount of
+                  collateral tokens required to be locked every time an action
+                  is challenged.
                 </Help>
               </React.Fragment>
             }
             css={`
-              margin-bottom: ${EXPANDABLE_ROW_GAP};
+              margin-bottom: ${compactMode ? EXPANDABLE_ROW_GAP : 0};
             `}
           >
             <TokenAmount
@@ -199,50 +203,11 @@ function renderEntryExpansion(entry, compactMode) {
             {settlementPeriod} <SubtleLabel>Hours</SubtleLabel>
           </InfoField>
 
-          <InfoField
-            label={
-              <React.Fragment>
-                Settlement Period
-                <Help hint="What is Settlement Period?">
-                  <strong>Settlement Period</strong>.
-                </Help>
-              </React.Fragment>
-            }
-            css={`
-              margin-bottom: ${EXPANDABLE_ROW_GAP};
-            `}
-          >
-            {challengePeriod} <SubtleLabel>Hours</SubtleLabel>
+          <InfoField label="Challenger Eligibility">
+            {challengeEligibility}
           </InfoField>
         </div>
       </div>
-
-      <InfoField
-        label="Signer Eligibility"
-        css={`
-          margin-bottom: ${EXPANDABLE_ROW_GAP};
-        `}
-      >
-        Open to tokenholders with a minimun token balance of
-        <div
-          css={`
-            display: inline-block;
-            position: relative;
-            top: ${0.5 * GU}px;
-          `}
-        >
-          <TokenBadge
-            address={signerEligibility.address}
-            name={signerEligibility.amount}
-            symbol={signerEligibility.symbol}
-            compact
-          />
-        </div>
-      </InfoField>
-
-      <InfoField label="Challenger Eligibility">
-        {challengeEligibility}
-      </InfoField>
     </div>
   )
 }
