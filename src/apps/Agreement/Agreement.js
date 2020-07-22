@@ -6,6 +6,7 @@ import {
   Header,
   IconEdit,
   IconTrash,
+  noop,
   Split,
   useLayout,
 } from '@aragon/ui'
@@ -20,10 +21,10 @@ import VersionHistory from './VersionHistory'
 import VotePending from './VotePending'
 
 function Agreement({ agreements }) {
-  const [checklistCompleted, setChecklistCompleted] = useState(false)
-  const [agreementStatus, setAgreementStatus] = useState(STATUS_PENDING)
+  const [checklistCompleted, setChecklistCompleted] = useState(true)
   const { layoutName } = useLayout()
 
+  const agreementStatus = STATUS_ACTIVE
   const compactMode = layoutName === 'small'
 
   const handleChecklistClose = useCallback(() => {
@@ -44,7 +45,7 @@ function Agreement({ agreements }) {
       ['Create Agreement', true],
       ['Set permissions', true],
       ['Set actions requirements', true],
-      ['Share with members', false],
+      ['Share with members', true],
     ],
     []
   )
@@ -108,14 +109,7 @@ function Agreement({ agreements }) {
           <Button
             mode="strong"
             label="Update Agreement"
-            onClick={() => {
-              // TODO: This is just for testing the status change effect on UI state
-              setAgreementStatus(
-                agreementStatus === STATUS_ACTIVE
-                  ? STATUS_PENDING
-                  : STATUS_ACTIVE
-              )
-            }}
+            onClick={noop}
             icon={<IconEdit />}
             display={compactMode ? 'icon' : 'label'}
           />
@@ -138,7 +132,6 @@ function Agreement({ agreements }) {
               />
               <AgreementDetails
                 ipfsLink="QmXpcBiGZ7Uep2tmhxLhfA8ak1aYDUyevFSnpUa4Gc9kRn"
-                authorAddress="0xc41e4c10b37d3397a99d4a90e7d85508a69a5c4c"
                 stakingAddress="0x7c708ac7db979fa06705f8880f29f82cfc406993"
                 contractAddress="0x7c708ac7db979fa06705f8880f29f82cfc406993"
               />
