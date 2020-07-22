@@ -15,12 +15,11 @@ import AgreementDetails from './AgreementDetails'
 import AgreementDocument from './AgreementDocument'
 import AgreementHeader from './AgreementHeader'
 import ConfigurationChecklist from './ConfigurationChecklist'
+import { dateFormat } from '../../date-utils'
 import DisputableApps from './DisputableApps/DisputableApps'
 import DisputableAppsEmpty from './DisputableApps/DisputableAppsEmpty'
 import VersionHistory from './VersionHistory'
 import VotePending from './VotePending'
-
-import { dateFormat } from '../../date-utils'
 
 import AGREEMENTS_MOCK_DATA from './mock-data'
 
@@ -30,7 +29,7 @@ function Agreement({ agreements }) {
 
   // Temporarily provide mock data if initially undefined
   const agreement = (agreements && agreements[0]) || AGREEMENTS_MOCK_DATA[0]
-  const { agreementContract, stakingPool, versions } = agreement
+  const { appAddress, stakingPool, versions } = agreement
   const { title } = agreement.currentVersion
 
   const agreementStatus = STATUS_ACTIVE
@@ -145,7 +144,7 @@ function Agreement({ agreements }) {
               <AgreementDetails
                 ipfsLink="QmXpcBiGZ7Uep2tmhxLhfA8ak1aYDUyevFSnpUa4Gc9kRn"
                 stakingAddress={stakingPool}
-                contractAddress={agreementContract}
+                contractAddress={appAddress}
               />
             </Box>
             {mockAppItems.length > 0 ? (
