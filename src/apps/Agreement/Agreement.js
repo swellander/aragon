@@ -20,6 +20,8 @@ import DisputableAppsEmpty from './DisputableApps/DisputableAppsEmpty'
 import VersionHistory from './VersionHistory'
 import VotePending from './VotePending'
 
+import { dateFormat } from '../../date-utils'
+
 import AGREEMENTS_MOCK_DATA from './mock-data'
 
 function Agreement({ agreements }) {
@@ -28,7 +30,7 @@ function Agreement({ agreements }) {
 
   // Temporarily provide mock data if initially undefined
   const agreement = (agreements && agreements[0]) || AGREEMENTS_MOCK_DATA[0]
-  const { agreementContract, stakingPool } = agreement
+  const { agreementContract, stakingPool, versions } = agreement
   const { title } = agreement.currentVersion
 
   const agreementStatus = STATUS_ACTIVE
@@ -57,10 +59,12 @@ function Agreement({ agreements }) {
     []
   )
 
-  // TODO: Replace with real data
-  const mockHistoryItems = useMemo(
-    () => ['2020/05/22', '2020/05/21', '2020/05/20'],
-    []
+  const historyItems = useMemo(
+    () =>
+      versions.map(({ effectiveFrom }) =>
+        dateFormat(effectiveFrom, 'onlyDate')
+      ),
+    [versions]
   )
 
   // TODO: Replace with real data
@@ -166,7 +170,7 @@ function Agreement({ agreements }) {
                 <VotePending endDate={mockEndDate} />
               )}
               {agreementStatus === STATUS_ACTIVE && (
-                <VersionHistory items={mockHistoryItems} />
+                <VersionHistory items={historyItems} />
               )}
             </Box>
           </React.Fragment>
